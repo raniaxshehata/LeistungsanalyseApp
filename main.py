@@ -1,4 +1,5 @@
 import json
+from my_classes import Person, Experiment #für die Aufgabe 6.1 importieren, um die Klassen hier zu verwenden.
 
 # Definition der Funktionen estimate_max_hr und build_person aus deinem vorhandenen Code
 
@@ -37,21 +38,20 @@ def get_experiment_details():
     supervisor_last_name = input("Enter supervisor's last name: ")
     supervisor_sex = input("Enter supervisor's sex (male/female): ")
     supervisor_age = int(input("Enter supervisor's age: "))
-    supervisor = build_person(supervisor_first_name, supervisor_last_name, supervisor_sex, supervisor_age)
+    supervisor = Person(supervisor_first_name, supervisor_last_name, supervisor_sex, supervisor_age)
     subject_first_name = input("Enter subject's first name: ")
     subject_last_name = input("Enter subject's last name: ")
     subject_sex = input("Enter subject's sex (male/female): ")
     subject_age = int(input("Enter subject's age: "))
-    subject = build_person(subject_first_name, subject_last_name, subject_sex, subject_age)
-    return build_experiment(experiment_name, date, supervisor, subject)
-
-# Hauptfunktion, um das Experiment zu erstellen und in einer Datei zu speichern
+    subject = Person(subject_first_name, subject_last_name, subject_sex, subject_age)
+    return Experiment(experiment_name, date, supervisor, subject)
+#build_person/build_experiment (um ein Wörterbuch zu erstellen, dass die Attribute einer Person/Experiment enthält), haben wir mit den Klassen 'Person' 'Experiment', die deren Attribute direkt als Eigenschaften haben, ersetzt.
+#Experiment erstellen, als Datei speichern
 def main():
     experiment = get_experiment_details()
-    # Schreibe das Experiment in eine JSON-Datei
+    #JSON-Datei
     with open("experiment.json", "w") as outfile:
-        json.dump(experiment, outfile)
+        json.dump(experiment.__dict__, outfile)
 
 if __name__ == "__main__":
     main()
-
