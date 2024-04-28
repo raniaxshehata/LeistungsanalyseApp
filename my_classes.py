@@ -1,11 +1,12 @@
 import jason
 
 class Person:
-  def __init__(self, first_name, last_name, sex, age):
+  def __init__(self, first_name, last_name, sex, age, birthday):
       self.first_name = first_name
       self.last_name = last_name
       self.sex = sex
       self.age = age
+      self.__birthday = birthday #verstecktes Attribut Geburtsdatum
 
   def estimate_max_hr(self):
       if self.sex == "male":
@@ -19,7 +20,14 @@ class Person:
   def save(self):
       with open('person.json', 'w') as f:
           json.dump(self.__dict__, f)
+        
+class Subject(Person):
+  def __init__(self, first_name, last_name, sex, age, birthday):
+      super().__init__(first_name, last_name, sex, age, birthday) #super() habe ich hier verwendet, um die __init__ Methode von der Elternklasse 'Person' von den Unterklassen 'Subject' und Sup. aufzurufen, ohne den Code zu dupliziern
 
+class Supervisor(Person):
+  def __init__(self, first_name, last_name, sex, age, birthday):
+      super().__init__(first_name, last_name, sex, age, birthday)
 
 class Experiment:
   def __init__(self, eperiment_name, date, supervisor, subject):
